@@ -9,10 +9,12 @@ does not provide an {init,upstart,systemd} script that gets executed at boot.
 Instead, it uses udev and the modprobe configuration directories to create the zram devices.
 
 The usage is simple: put the configuration file "zramcfg" in /etc/default/, then use
-	sudo zramcfg
+
+    sudo zramcfg
 
 to enable zram, or
-	sudo zramcfg -r
+
+    sudo zramcfg -r
 
 to disable it.
 
