@@ -10,12 +10,15 @@ Instead, it uses udev and the modprobe configuration directories to create the z
 
 The usage is simple: put the configuration file "zramcfg" in /etc/default/, then use
 
-    sudo zramcfg
+    sudo ./zramcfg.sh
 
 to enable zram, or
 
-    sudo zramcfg -r
+    sudo ./zramcfg.sh -r
 
 to disable it.
 
 See the configuration file if you want to tweak the devices number and the size of them.
+
+Note that if you aren't using systemd, you need to manually tell the kernel
+to load the 'zram' module.
