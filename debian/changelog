@@ -1,3 +1,9 @@
+zramcfg (0.0.5) unstable; urgency=low
+
+  * Added quiet (-q) option.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 23 Dec 2013 23:46:54 +0100
+
 zramcfg (0.0.4) unstable; urgency=low
 
   * debian/control: fixed category.
