@@ -1,0 +1,2 @@
+zramcfg.sh /usr/bin/zramcfg
+zramcfg /etc/default

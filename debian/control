@@ -1,0 +1,22 @@
+Source: zramcfg
+Section: doc
+Priority: optional
+Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.5
+Homepage: http://github.com/semplice/zramcfg
+Vcs-Git: git://github.com/semplice/zramcfg.git
+Vcs-Browser: https://github.com/semplice/zramcfg
+
+Package: zramcfg
+Architecture: all
+Depends: ${misc:Depends}, bash, sed, gawk | awk
+Description: configuration tool for the zRAM kernel module
+ zramcfg is a really simple, bash-written configuration tool
+ for the zRAM kernel module.
+ .
+ Unlike zram-config (ubuntu) and the one used in elementary OS
+ (along with other scripts based on these), zramcfg does not provide
+ an {init,upstart,systemd} script that gets executed at boot.  
+ Instead, it uses udev and the modprobe configuration directories
+ to create the zram devices.
