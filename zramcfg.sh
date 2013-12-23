@@ -24,10 +24,11 @@ help() {
 	cat <<EOF
 zramcfg - configure zram for semplice
 
-USAGE: zramcfg [-r] [-h]
+USAGE: zramcfg [-r] [-q] [-h]
 
 Arguments:
    -r                    Removes current configuration
+   -q                    No output, except for errors
    -h                    Displays this message
 
 zramcfg reads the configuration from /etc/default/zramcfg, see that file
@@ -42,7 +43,7 @@ error() {
 }
 
 # Parse arguments
-while getopts ":hr" opt; do
+while getopts ":hrq" opt; do
 	case "$opt" in
 		h)
 			help
@@ -50,6 +51,9 @@ while getopts ":hr" opt; do
 			;;
 		r)
 			REMOVE="y"
+			;;
+		q)
+			QUIET="y"
 			;;
 		\?)
 			error "Invalid option: -$OPTARG"
@@ -74,7 +78,7 @@ done
 sed -i '/# added by zramcfg/d' /etc/fstab
 
 if [ -n "$REMOVE" ]; then
-	echo "Successfully removed configuration."
+	[ -z "$QUIET" ] && echo "Successfully removed configuration."
 	exit 0
 fi
 
@@ -95,7 +99,7 @@ fi
 # Now divide it equally...
 SIZE=$(($SIZE / $NUM_DEVICES ))
 
-echo "Configuring $NUM_DEVICES devices of $SIZE MB size."
+[ -z "$QUIET" ] && echo "Configuring $NUM_DEVICES devices of $SIZE MB size."
 
 # Create the modprobe configuration
 cat > /etc/modprobe.d/zramcfg.conf <<EOF
@@ -140,4 +144,5 @@ EOF
 
 done
 
-echo "Successfully configured. Reboot the system to apply the changes."
+[ -z "$QUIET" ] && echo "Successfully configured. Reboot the system to apply the changes."
+exit 0
