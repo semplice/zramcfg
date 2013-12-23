@@ -1,3 +1,9 @@
+zramcfg (0.0.2) unstable; urgency=low
+
+  * debian/: fixed zramcfg.sh installation.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 23 Dec 2013 13:46:22 +0100
+
 zramcfg (0.0.1) unstable; urgency=low
 
   * Initial release
