@@ -1,3 +1,9 @@
+zramcfg (0.0.4) unstable; urgency=low
+
+  * debian/control: fixed category.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 23 Dec 2013 15:19:13 +0100
+
 zramcfg (0.0.3) unstable; urgency=low
 
   * I'm a moron² (sorry, I'm on vacation :P)
