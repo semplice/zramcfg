@@ -1,5 +1,5 @@
 Source: zramcfg
-Section: doc
+Section: utils
 Priority: optional
 Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
 Build-Depends: debhelper (>= 8.0.0)
