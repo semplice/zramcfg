@@ -59,10 +59,13 @@ fi
 # Now divide it equally...
 SIZE=$(($SIZE / $NUM_DEVICES ))
 
+# Modprobe
+[ -z "$STOP" ] && modprobe zram num_devices=$NUM_DEVICES
+
 for num in $(seq 0 $(($NUM_DEVICES - 1))); do
 	if [ -z "$STOP" ]; then
-		# Modprobe
-		modprobe zram num_devices=$NUM_DEVICES
+		# Set disksize
+		echo $((${SIZE}*1024*1024)) > /sys/block/zram${num}/disksize
 		
 		# Make swap
 		/sbin/mkswap /dev/zram${num}
@@ -75,8 +78,9 @@ for num in $(seq 0 $(($NUM_DEVICES - 1))); do
 		
 		# Reset
 		echo 1 > /sys/block/zram${num}/reset
-		
-		# Remove module
-		modprobe -r zram
+
 	fi
 done
+
+# Modprobe -r if stop
+[ -n "$STOP" ] && modprobe -r zram
