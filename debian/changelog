@@ -1,3 +1,9 @@
+zramcfg (0.0.6) UNRELEASED; urgency=medium
+
+  * Added sailfish-jolla configuration file and RPM spec.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 09 Sep 2014 11:51:31 +0200
+
 zramcfg (0.0.5) unstable; urgency=low
 
   * Added quiet (-q) option.
