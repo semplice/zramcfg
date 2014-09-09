@@ -1,5 +1,5 @@
 Name:          zramcfg
-Version:       0.0.6
+Version:       0.0.7
 Summary:       configuration tool for the zRAM kernel module
 Release:       1
 License:       GPLv3+
@@ -43,6 +43,9 @@ mkdir -p %{buildroot}/lib/systemd/system
 cp -p zramcfg.sh %{buildroot}/usr/bin/zramcfg
 cp -p zramcfg-fallback %{buildroot}/usr/bin/zramcfg-fallback
 cp -p zramcfg-jolla %{buildroot}/etc/default/zramcfg
+cp -p service/zramcfg-fallback.service %{buildroot}/lib/systemd/system
+
+chmod +x %{buildroot}/usr/bin/zramcfg*
 
 ### FILES
 %files

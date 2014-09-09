@@ -26,7 +26,7 @@ error() {
 }
 
 # Parse arguments
-while getopts ":hrq" opt; do
+while getopts "s" opt; do
 	case "$opt" in
 		s)
 			STOP="y"

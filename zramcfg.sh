@@ -24,7 +24,7 @@ help() {
 	cat <<EOF
 zramcfg - configure zram for semplice
 
-USAGE: zramcfg [-r] [-q] [-h]
+USAGE: zramcfg [-r] [-f] [-q] [-h]
 
 Arguments:
    -r                    Removes current configuration
@@ -44,7 +44,7 @@ error() {
 }
 
 # Parse arguments
-while getopts ":hrq" opt; do
+while getopts ":hfrq" opt; do
 	case "$opt" in
 		h)
 			help
