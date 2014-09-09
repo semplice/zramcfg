@@ -1,5 +1,5 @@
 Name:          zramcfg
-Version:       0.0.7
+Version:       0.0.8
 Summary:       configuration tool for the zRAM kernel module
 Release:       1
 License:       GPLv3+
@@ -38,12 +38,12 @@ to create the zram devices.
 %install
 mkdir -p %{buildroot}/usr/bin
 mkdir -p %{buildroot}/etc/default
-mkdir -p %{buildroot}/lib/systemd/system
+#mkdir -p %{buildroot}/lib/systemd/system
 
 cp -p zramcfg.sh %{buildroot}/usr/bin/zramcfg
 cp -p zramcfg-fallback %{buildroot}/usr/bin/zramcfg-fallback
 cp -p zramcfg-jolla %{buildroot}/etc/default/zramcfg
-cp -p service/zramcfg-fallback.service %{buildroot}/lib/systemd/system
+#cp -p service/zramcfg-fallback.service %{buildroot}/lib/systemd/system
 
 chmod +x %{buildroot}/usr/bin/zramcfg*
 
@@ -52,11 +52,13 @@ chmod +x %{buildroot}/usr/bin/zramcfg*
 %defattr(-,root,root,-)
 %{_sysconfdir}
 %{_bindir}
-/lib/systemd/system
+#/lib/systemd/system
 
 ### POST AND PREUN
 %post
-systemctl enable zramcfg-fallback.service
+#systemctl enable zramcfg-fallback.service
+zramcfg
 
 %preun
-systemctl disable zramcfg-fallback.service
+#systemctl disable zramcfg-fallback.service
+zramcfg -r
