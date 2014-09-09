@@ -12,6 +12,7 @@ Requires:      kernel-module-zram-jolla
 Requires:      gawk
 Requires:      grep
 Requires:      sed
+Requires:      systemd
 
 BuildArch:     noarch
 
@@ -37,8 +38,10 @@ to create the zram devices.
 %install
 mkdir -p %{buildroot}/usr/bin
 mkdir -p %{buildroot}/etc/default
+mkdir -p %{buildroot}/lib/systemd/system
 
 cp -p zramcfg.sh %{buildroot}/usr/bin/zramcfg
+cp -p zramcfg-fallback %{buildroot}/usr/bin/zramcfg-fallback
 cp -p zramcfg-jolla %{buildroot}/etc/default/zramcfg
 
 ### FILES
@@ -46,10 +49,11 @@ cp -p zramcfg-jolla %{buildroot}/etc/default/zramcfg
 %defattr(-,root,root,-)
 %{_sysconfdir}
 %{_bindir}
+/lib/systemd/system
 
 ### POST AND PREUN
 %post
-/usr/bin/zramcfg
+/usr/bin/zramcfg -f
 
 %preun
-/usr/bin/zramcfg -r
+/usr/bin/zramcfg -f -r

@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# zramcfg - configure zram for semplice
+# Copyright (C) 2013  Eugenio "g7" Paolantonio
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+set -e
+
+error() {
+	# This method displays an error
+	echo "E: $@" >&2
+	exit 1
+}
+
+# Parse arguments
+while getopts ":hrq" opt; do
+	case "$opt" in
+		s)
+			STOP="y"
+			;;
+		\?)
+			error "Invalid option: -$OPTARG"
+			;;
+	esac
+done
+
+[ ! -e /etc/default/zramcfg ] && error "Configuration file /etc/default/zramcfg missing!"
+
+# Read configuration file
+. /etc/default/zramcfg
+
+# Parse NUM_DEVICES
+if [ "$NUM_DEVICES" == "cpu" ]; then
+	# Should look at the cpu to get the number of cores...
+	NUM_DEVICES="`grep -c processor /proc/cpuinfo`"
+	[ "$NUM_DEVICES" == "0" ] && NUM_DEVICES="1"
+fi
+
+# Parse SIZE
+if [[ "$SIZE" == *"%"* ]]; then
+	# It's a percentage
+	__memory="`grep MemTotal /proc/meminfo | awk '{ print $2 }'`"
+	# 8000 : 100 = x : 25
+	SIZE=$(($__memory * ${SIZE//"%"/} / 100 / 1024))
+fi
+# Now divide it equally...
+SIZE=$(($SIZE / $NUM_DEVICES ))
+
+for num in $(seq 0 $(($NUM_DEVICES - 1))); do
+	if [ -z "$STOP" ]; then
+		# Make swap
+		/sbin/mkswap /dev/zram${num}
+		
+		# Mount
+		/sbin/swapon /dev/zram${num} -p 32767
+	else
+		# Shutdown swap
+		/sbin/swapoff /dev/zram${num}
+		
+		# Reset
+		echo 1 > /sys/block/zram${num}/reset
+	fi
+done

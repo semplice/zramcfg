@@ -1,0 +1,12 @@
+[Unit]
+Description=zramcfg-fallback
+After=systemd-udevd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/zramcfg-fallback
+ExecStop=/usr/bin/zramcfg-fallback -s
+
+[Install]
+WantedBy=multi-user.target

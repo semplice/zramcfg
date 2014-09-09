@@ -28,6 +28,7 @@ USAGE: zramcfg [-r] [-q] [-h]
 
 Arguments:
    -r                    Removes current configuration
+   -f                    Fallback mode (use when the standard method doesn't work)
    -q                    No output, except for errors
    -h                    Displays this message
 
@@ -51,6 +52,9 @@ while getopts ":hrq" opt; do
 			;;
 		r)
 			REMOVE="y"
+			;;
+		f)
+			FALLBACK="y"
 			;;
 		q)
 			QUIET="y"
@@ -78,6 +82,7 @@ done
 sed -i '/# added by zramcfg/d' /etc/fstab
 
 if [ -n "$REMOVE" ]; then
+	[ -n "$FALLBACK" ] && systemctl disable zramcfg-fallback.service
 	[ -z "$QUIET" ] && echo "Successfully removed configuration."
 	exit 0
 fi
@@ -116,6 +121,12 @@ cat > /etc/modules-load.d/zramcfg.conf <<EOF
 # Use zramcfg -r to remove configuration and disable zram.
 zram
 EOF
+
+if [ -n "$FALLBACK" ]; then
+	systemctl enable zramcfg-fallback.service
+	[ -z "$QUIET" ] && echo "(fallback) Successfully configured. Reboot the system to apply the changes."
+	exit 0
+fi
 
 # Now it's time to generate the udev and fstab rules...
 
