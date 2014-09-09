@@ -36,7 +36,7 @@ to create the zram devices.
 ### INSTALL
 %install
 mkdir -p %{buildroot}/usr/bin
-mkdir -p %{buildoot}/etc/default
+mkdir -p %{buildroot}/etc/default
 
 cp -p zramcfg.sh %{buildroot}/usr/bin/zramcfg
 cp -p zramcfg-jolla %{buildroot}/etc/default/zramcfg
@@ -47,6 +47,9 @@ cp -p zramcfg-jolla %{buildroot}/etc/default/zramcfg
 %{_sysconfdir}
 %{_bindir}
 
-### POST AND POSTUN (depmod)
-%post -p /usr/bin/zramcfg
-%preun -p /usr/bin/zramcfg -r
+### POST AND PREUN
+%post
+/usr/bin/zramcfg
+
+%preun
+/usr/bin/zramcfg -r
