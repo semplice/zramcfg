@@ -1,0 +1,13 @@
+# zramcfg configuration file
+
+# Number of devices to initialize.
+# Use "cpu" to create a device for every core in the CPU.
+# Disksize will be equally distributed for every device, so for example
+# if you want to reserve 256MB with 4 devices, you'll get 4 devices
+# of 64 MB.
+NUM_DEVICES="cpu"
+
+# Size to reserve for the compressed swap.
+# You can use percentages, such as "25%", or integers. The unit is MB.
+SIZE="15%"
+
