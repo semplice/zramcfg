@@ -56,7 +56,7 @@ chmod +x %{buildroot}/usr/bin/zramcfg*
 
 ### POST AND PREUN
 %post
-/usr/bin/zramcfg -f
+systemctl enable zramcfg-fallback.service
 
 %preun
-/usr/bin/zramcfg -f -r
+systemctl disable zramcfg-fallback.service

@@ -61,6 +61,9 @@ SIZE=$(($SIZE / $NUM_DEVICES ))
 
 for num in $(seq 0 $(($NUM_DEVICES - 1))); do
 	if [ -z "$STOP" ]; then
+		# Modprobe
+		modprobe zram num_devices=$NUM_DEVICES
+		
 		# Make swap
 		/sbin/mkswap /dev/zram${num}
 		
@@ -72,5 +75,8 @@ for num in $(seq 0 $(($NUM_DEVICES - 1))); do
 		
 		# Reset
 		echo 1 > /sys/block/zram${num}/reset
+		
+		# Remove module
+		modprobe -r zram
 	fi
 done
