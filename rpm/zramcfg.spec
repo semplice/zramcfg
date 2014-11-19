@@ -1,5 +1,5 @@
 Name:          zramcfg
-Version:       0.0.9
+Version:       0.0.10
 Summary:       configuration tool for the zRAM kernel module
 Release:       1
 License:       GPLv3+

@@ -9,4 +9,4 @@ NUM_DEVICES="cpu"
 
 # Size to reserve for the compressed swap.
 # You can use percentages, such as "25%", or integers. The unit is MB.
-SIZE="13%"
+SIZE="16%"
