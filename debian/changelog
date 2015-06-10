@@ -1,8 +1,22 @@
-zramcfg (0.0.6) UNRELEASED; urgency=medium
+zramcfg (0.0.10) unstable; urgency=medium
 
+  [ Eugenio Paolantonio (g7) ]
   * Added sailfish-jolla configuration file and RPM spec.
+  * 0.0.6
+  * rpm: .spec fixes.
+  * Added experimental fallback service.
+  * Fixes.
+  * Do not rely on systemd anymore to modprobe the module if we are in the fallback mode.
+  * More fixes.
+  * Removed fallback method from main executable and also from spec; use bytes instead of megabytes notation on the udev rules.
+  * zramcfg-jolla: default to SIZE=13%.
+  * 0.0.9
+  * Raise the default size in the jolla configuration file to 16%.
 
- -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 09 Sep 2014 11:51:31 +0200
+  [ Brendan Perrine ]
+  * add each after devices to clarify
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Wed, 10 Jun 2015 11:05:35 +0200
 
 zramcfg (0.0.5) unstable; urgency=low
 
